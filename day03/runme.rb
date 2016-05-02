@@ -15,21 +15,29 @@ def calculate_move(coordinates, direction)
   new_coordinates
 end
 
-def number_of_houses(input)
-  input
-      .chars
-      .each_with_object([[0, 0]]) { |direction, coordinates| coordinates << calculate_move(coordinates.last, direction) }
-      .uniq
-      .count
+def number_of_houses(input, robo_santa)
+  santa_coordinates = [[0, 0]]
+  robo_santa_coordinates = [[0, 0]]
+  input.each_char.with_index do |direction, index|
+    target = (robo_santa && index % 2 == 0) ? robo_santa_coordinates : santa_coordinates
+    target << calculate_move(target.last, direction)
+  end
+
+  (santa_coordinates + robo_santa_coordinates).uniq.count
 end
 
 def read_input
-  if ARGV.length > 0
-    File.read(ARGV[0])
+  if ARGV.length == 2 and ARGV[0]== "--with-robo-santa"
+    [File.read(ARGV[1]), true]
+  elsif ARGV.length == 1 and ARGV[0]== "--with-robo-santa"
+    [File.read(ARGV[0]), true]
+  elsif ARGV.length > 0
+    [File.read(ARGV[0]), false]
   else
-    STDIN.read
+    [STDIN.read, false]
   end
 end
 
-puts "Only #{number_of_houses(read_input)} houses received presents"
+(input, use_robo_santa) = read_input
+puts "Only #{number_of_houses(input, use_robo_santa)} houses received presents"
 

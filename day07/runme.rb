@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Instruction
   attr_reader :param1, :param2, :operation, :result
 

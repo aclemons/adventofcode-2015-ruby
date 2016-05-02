@@ -30,7 +30,7 @@ def read_input
   if ARGV.length == 2 and ARGV[0]== "--with-robo-santa"
     [File.read(ARGV[1]), true]
   elsif ARGV.length == 1 and ARGV[0]== "--with-robo-santa"
-    [File.read(ARGV[0]), true]
+    [STDIN.read, true]
   elsif ARGV.length > 0
     [File.read(ARGV[0]), false]
   else

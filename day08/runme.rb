@@ -1,10 +1,11 @@
+#!/usr/bin/env ruby
+
 def compute_size(input)
   input.each_line.map do |line|
     line.chomp!
 
     line.length - unescape(line).length
-
-  end.reduce(0) { |sum, line| sum + line }
+  end.reduce(:+)
 end
 
 def unescape(line)

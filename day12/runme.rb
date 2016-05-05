@@ -8,9 +8,9 @@ def sum_json(node)
   if node.is_a? Numeric
     node
   elsif node.is_a? Array
-    node.map { |val| sum_json(val)}.reduce(0) { |total, val| total + val }
+    node.map { |val| sum_json(val)}.reduce(:+)
   elsif node.is_a? Hash
-    node.map { |key, val| sum_json(val) }.reduce(0) { |total, val| total + val }
+    node.map { |key, val| sum_json(val) }.reduce(:+)
   else
     0
   end
